@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import AirPollution from "./components/AirPollution";
+import Card from "./components/Card";
+import NavBar from "./components/NavBar";
+import Sunset from "./components/Sunset";
+import Wind from "./components/WindCard";
 
 function App() {
+  const [theme, setTheme] = useState("luxury");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div data-theme={theme} className="bg-base-100 min-h-screen ">
+      <NavBar setTheme={setTheme} theme={theme} />
+      <main className="flex gap-10 p-20">
+        <Card />
+        <AirPollution />
+        <div>
+          <Sunset />
+          <Wind />
+        </div>
+      </main>
     </div>
   );
 }
