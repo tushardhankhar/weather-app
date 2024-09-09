@@ -5,7 +5,7 @@ import CurrentTime from "./CurrentTime";
 export default function Card() {
   const date = new Date();
   return (
-    <div className="bg-base-200 w-96 h-[30rem] rounded-2xl border-base-content border p-8 flex flex-col justify-between ">
+    <div className="bg-base-200 w-full rounded-2xl border-base-content border p-8 flex flex-col justify-between ">
       <div>
         <div className="flex justify-between font-medium text-xl">
           <h2>{DAY[date.getDay()]}</h2>

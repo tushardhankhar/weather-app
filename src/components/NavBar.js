@@ -99,7 +99,7 @@ export default function NavBar({ setTheme, theme }) {
     );
   };
   return (
-    <div className="flex p-10 justify-between shadow-xl">
+    <div className="flex p-6 justify-between shadow-xl">
       <div className="p-2 bg-warning text-warning-conten rounded-xl font-extrabold text-2xl">
         Weather
       </div>
