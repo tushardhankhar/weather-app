@@ -2,7 +2,7 @@ import React from "react";
 import { FaTemperatureHalf } from "react-icons/fa6";
 export default function FeelsLike() {
   return (
-    <div className="bg-base-200 w-[25rem] h-[15rem] rounded-2xl border-base-content border p-8 flex flex-col justify-between">
+    <div className="bg-base-200 w-full h-[15rem] rounded-2xl border-base-content border p-8 flex flex-col justify-between">
       <div>
         <div className="flex gap-2 mb-6 font-medium text-xl">
           <FaTemperatureHalf size={25} />

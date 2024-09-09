@@ -18,13 +18,13 @@ const WeatherMap = () => {
         backgroundColor: darkMode ? "#333" : "#fff",
         width: "50vw",
         height: "50vh",
-        borderRadius: "2rem",
+        borderRadius: "1rem",
       }}
     >
       <MapContainer
         center={[20.5937, 78.9629]}
         zoom={5}
-        style={{ height: "100%", width: "100%" , borderRadius : "2rem" }}
+        style={{ height: "100%", width: "100%", borderRadius: "2rem" }}
       >
         {/* Base Map Layer (Light or Dark) */}
         <TileLayer
@@ -43,29 +43,29 @@ const WeatherMap = () => {
         />
       </MapContainer>
 
-      <div style={{ padding: "10px", textAlign: "center" }}>
+      <div className="flex gap-4 justify-center mt-4">
         {/* Layer Switcher */}
         <button
+          className="btn btn-primary"
           onClick={() => setWeatherLayer("clouds_new")}
-          style={darkMode ? darkButtonStyle : lightButtonStyle}
         >
           Clouds
         </button>
         <button
+          className="btn btn-primary"
           onClick={() => setWeatherLayer("precipitation_new")}
-          style={darkMode ? darkButtonStyle : lightButtonStyle}
         >
           Precipitation
         </button>
         <button
+          className="btn btn-primary"
           onClick={() => setWeatherLayer("temp_new")}
-          style={darkMode ? darkButtonStyle : lightButtonStyle}
         >
           Temperature
         </button>
         <button
           onClick={() => setWeatherLayer("wind_new")}
-          style={darkMode ? darkButtonStyle : lightButtonStyle}
+          className="btn btn-primary"
         >
           Wind
         </button>
@@ -73,10 +73,8 @@ const WeatherMap = () => {
         {/* Dark Mode Toggle Button */}
         <button
           onClick={toggleDarkMode}
-          style={{
-            marginTop: "10px",
-            ...(darkMode ? darkButtonStyle : lightButtonStyle),
-          }}
+          className="btn btn-primary"
+         
         >
           {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
         </button>
@@ -85,23 +83,6 @@ const WeatherMap = () => {
   );
 };
 
-// Button styles
-const darkButtonStyle = {
-  backgroundColor: "#555",
-  color: "#fff",
-  padding: "10px",
-  margin: "5px",
-  border: "none",
-  cursor: "pointer",
-};
 
-const lightButtonStyle = {
-  backgroundColor: "#f0f0f0",
-  color: "#000",
-  padding: "10px",
-  margin: "5px",
-  border: "1px solid #ccc",
-  cursor: "pointer",
-};
 
 export default WeatherMap;
