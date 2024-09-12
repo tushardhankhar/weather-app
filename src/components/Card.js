@@ -2,7 +2,6 @@ import React from "react";
 import { DAY } from "../utils/dateConfig";
 import CurrentTime from "./CurrentTime";
 
-
 export default function Card({ data }) {
   const date = new Date();
   return (
@@ -20,7 +19,7 @@ export default function Card({ data }) {
       <div>
         <img
           className="h-16 w-16 ml-[-1rem]"
-          src="https://openweathermap.org/img/wn/10d@2x.png"
+          src={`https://openweathermap.org/img/wn/${data?.weather[0]?.icon}@2x.png`}
           alt=""
         />
         <h2>Clear</h2>

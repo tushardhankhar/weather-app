@@ -7,27 +7,27 @@ import Wind from "./components/WindCard";
 import FeelsLike from "./components/FeelsLike";
 import WeatherMap from "./components/Map";
 import Forecast from "./components/Forecast";
-import useGetLocation from "./hooks/useGetLocation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { useLocation } from "./context/location-context";
 
 const notify = (err) => toast.error(err);
 
 function App() {
   const [theme, setTheme] = useState("coffee");
-  const { location, error } = useGetLocation();
+  const { location, error } = useLocation();
   const [data, setData] = useState();
 
   async function getData(params) {
     try {
       const res = await axios({
         method: "GET",
-        url: "https://api.openweathermap.org/data/2.5/weather?",
+        url: "https://api.openweathermap.org/data/2.5/weher?",
         params: {
           lat: location.latitude,
           lon: location.longitude,
-          appid: "26417544c7a6f54247e9f8e84ffa236e",
+          appid: process.env.REACT_APP_WEATHER_KEY,
         },
       });
       setData(res?.data);
@@ -47,8 +47,6 @@ function App() {
       getData();
     }
   }, [location]);
-
-  console.log(data);
 
   return (
     <div data-theme={theme} className="bg-base-100 min-h-screen ">

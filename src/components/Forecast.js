@@ -18,79 +18,8 @@ export default function Forecast() {
           />
           <div className="w-full flex items-center gap-4">
             <h3 className="text-xl font-semibold">13&deg;c</h3>
-            <progress
-              class="progress w-full h-4"
-              value="10"
-              max="100"
-            ></progress>
-            <h3 className="text-xl font-semibold">13&deg;c</h3>
-          </div>
-        </div>{" "}
-        <div className="flex items-center gap-12">
-          <h2>Today</h2>
-          <img
-            className="h-12 w-12 mt-1"
-            src="https://openweathermap.org/img/wn/10d@2x.png"
-            alt=""
-          />
-          <div className="w-full flex items-center gap-4">
-            <h3 className="text-xl font-semibold">13&deg;c</h3>
-            <progress
-              class="progress w-full h-4"
-              value="10"
-              max="100"
-            ></progress>
-            <h3 className="text-xl font-semibold">13&deg;c</h3>
-          </div>
-        </div>{" "}
-        <div className="flex items-center gap-12">
-          <h2>Today</h2>
-          <img
-            className="h-12 w-12 mt-1"
-            src="https://openweathermap.org/img/wn/10d@2x.png"
-            alt=""
-          />
-          <div className="w-full flex items-center gap-4">
-            <h3 className="text-xl font-semibold">13&deg;c</h3>
-            <progress
-              class="progress w-full h-4"
-              value="10"
-              max="100"
-            ></progress>
-            <h3 className="text-xl font-semibold">13&deg;c</h3>
-          </div>
-        </div>{" "}
-        <div className="flex items-center gap-12">
-          <h2>Today</h2>
-          <img
-            className="h-12 w-12 mt-1"
-            src="https://openweathermap.org/img/wn/10d@2x.png"
-            alt=""
-          />
-          <div className="w-full flex items-center gap-4">
-            <h3 className="text-xl font-semibold">13&deg;c</h3>
-            <progress
-              class="progress w-full h-4"
-              value="10"
-              max="100"
-            ></progress>
-            <h3 className="text-xl font-semibold">13&deg;c</h3>
-          </div>
-        </div>{" "}
-        <div className="flex items-center gap-12">
-          <h2>Today</h2>
-          <img
-            className="h-12 w-12 mt-1"
-            src="https://openweathermap.org/img/wn/10d@2x.png"
-            alt=""
-          />
-          <div className="w-full flex items-center gap-4">
-            <h3 className="text-xl font-semibold">13&deg;c</h3>
-            <progress
-              class="progress w-full h-4"
-              value="10"
-              max="100"
-            ></progress>
+            <hr className="border-base-content border-2 w-24" />
+
             <h3 className="text-xl font-semibold">13&deg;c</h3>
           </div>
         </div>

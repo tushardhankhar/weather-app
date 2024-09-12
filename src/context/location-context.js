@@ -1,10 +1,16 @@
-import { useEffect, useState } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 
-export default function useGetLocation() {
+const LocationContext = createContext();
+
+export const useLocation = () => {
+  return useContext(LocationContext);
+};
+
+export const LocationProvider = ({ children }) => {
   const [error, setError] = useState("");
   const [location, setLocation] = useState({
-    latitude: null,
-    longitude: null,
+    latitude: 28.7041,
+    longitude: 77.1025,
   });
 
   useEffect(() => {
@@ -17,7 +23,6 @@ export default function useGetLocation() {
           });
         },
         (err) => {
-          // Handle error when location access is denied
           switch (err.code) {
             case err.PERMISSION_DENIED:
               setError("Permission denied. Please enable location access.");
@@ -39,5 +44,9 @@ export default function useGetLocation() {
     }
   }, []);
 
-  return { location, error };
-}
+  return (
+    <LocationContext.Provider value={{ location, error, setLocation }}>
+      {children}
+    </LocationContext.Provider>
+  );
+};
