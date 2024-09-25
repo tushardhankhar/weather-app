@@ -9,8 +9,8 @@ import WeatherMap from "./components/Map";
 import Forecast from "./components/Forecast";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
 import { useLocation } from "./context/location-context";
+import { getWeatherData } from "./services/weatherService";
 
 const notify = (err) => toast.error(err);
 
@@ -18,24 +18,19 @@ function App() {
   const [theme, setTheme] = useState("coffee");
   const { location, error } = useLocation();
   const [data, setData] = useState();
+  const [isLocationUpdated, setIsLocationUpdated] = useState(false);
 
-  async function getData(params) {
+  const fetchWeatherData = async () => {
     try {
-      const res = await axios({
-        method: "GET",
-        url: "https://api.openweathermap.org/data/2.5/weher?",
-        params: {
-          lat: location.latitude,
-          lon: location.longitude,
-          appid: process.env.REACT_APP_WEATHER_KEY,
-        },
+      const weatherData = await getWeatherData({
+        lat: location.latitude,
+        lon: location.longitude,
       });
-      setData(res?.data);
+      setData(weatherData);
     } catch (error) {
       notify(error.message);
     }
-  }
-
+  };
   useEffect(() => {
     if (error) {
       notify(error);
@@ -43,10 +38,16 @@ function App() {
   }, [error]);
 
   useEffect(() => {
-    if (location.latitude) {
-      getData();
+    if (!isLocationUpdated && location.latitude !== 28.7041 && location.longitude !== 77.1025) {
+      setIsLocationUpdated(true);
     }
   }, [location]);
+
+  useEffect(() => {
+    if (isLocationUpdated || !navigator.geolocation) {
+      fetchWeatherData();
+    }
+  }, [isLocationUpdated, location]);
 
   return (
     <div data-theme={theme} className="bg-base-100 min-h-screen ">

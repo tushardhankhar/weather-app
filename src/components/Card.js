@@ -22,8 +22,8 @@ export default function Card({ data }) {
           src={`https://openweathermap.org/img/wn/${data?.weather[0]?.icon}@2x.png`}
           alt=""
         />
-        <h2>Clear</h2>
-        <div>L: 14&deg;C &nbsp; h: 28&deg;C</div>
+        <h2>{data?.weather[0]?.main}</h2>
+        <div>L: {(data?.main?.temp_min - 273.15).toFixed(1)}&deg;c &nbsp; h: {(data?.main?.temp_max - 273.15).toFixed(1)}&deg;c</div>
       </div>
     </div>
   );

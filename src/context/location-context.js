@@ -9,8 +9,8 @@ export const useLocation = () => {
 export const LocationProvider = ({ children }) => {
   const [error, setError] = useState("");
   const [location, setLocation] = useState({
-    latitude: 28.7041,
-    longitude: 77.1025,
+    latitude: 28.7041, // Default latitude (Delhi)
+    longitude: 77.1025, // Default longitude (Delhi)
   });
 
   useEffect(() => {

@@ -1,15 +1,33 @@
-import React, { useState } from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
+import React, { useEffect, useState } from "react";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { useLocation } from "../context/location-context";
+
+// Component to handle map re-centering
+const ChangeMapCenter = ({ coordinates }) => {
+  const map = useMap();
+  useEffect(() => {
+    map.setView(coordinates); // Update map center
+  }, [coordinates, map]);
+  return null;
+};
 
 const WeatherMap = () => {
   const [darkMode, setDarkMode] = useState(false); // Dark mode state
-  const [weatherLayer, setWeatherLayer] = useState("clouds_new");
+  const [weatherLayer, setWeatherLayer] = useState("temp_new");
+  const [coordinates, setCoordinates] = useState([20.5937, 78.9629]);
+  const { location, error } = useLocation();
 
-  const API_KEY = "YOUR_API_KEY"; // Replace with your OpenWeatherMap API key
+  const API_KEY = process.env.REACT_APP_WEATHER_KEY; // Replace with your OpenWeatherMap API key
 
   // Toggle dark mode
   const toggleDarkMode = () => setDarkMode(!darkMode);
+
+  useEffect(() => {
+    if (location && Object.values(location).length > 0) {
+      setCoordinates(Object.values(location));
+    }
+  }, [location]);
 
   return (
     <div
@@ -22,10 +40,13 @@ const WeatherMap = () => {
       }}
     >
       <MapContainer
-        center={[20.5937, 78.9629]}
+        center={coordinates}
         zoom={5}
         style={{ height: "100%", width: "100%", borderRadius: "2rem" }}
       >
+        {/* Re-center map when location changes */}
+        <ChangeMapCenter coordinates={coordinates} />
+
         {/* Base Map Layer (Light or Dark) */}
         <TileLayer
           url={
@@ -71,18 +92,12 @@ const WeatherMap = () => {
         </button>
 
         {/* Dark Mode Toggle Button */}
-        <button
-          onClick={toggleDarkMode}
-          className="btn btn-primary"
-         
-        >
+        <button onClick={toggleDarkMode} className="btn btn-primary">
           {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
         </button>
       </div>
     </div>
   );
 };
-
-
 
 export default WeatherMap;
