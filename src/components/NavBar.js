@@ -24,6 +24,23 @@ export default function NavBar({ setTheme, theme }) {
   }
 
   useEffect(() => {
+    // Function to handle clicks outside of the component
+    const handleClickOutside = (event) => {
+      if (typeof event.target.className === "string") {
+        if (!event.target.className?.split(" ").includes("dropdown")) {
+          setMenuDropDown(false);
+        }
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
     if (inputValue) {
       let timer = setTimeout(() => {
         handleSearch();
@@ -33,7 +50,7 @@ export default function NavBar({ setTheme, theme }) {
         clearTimeout(timer);
       };
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputValue]);
 
   const handleItemClick = (item) => {
@@ -45,59 +62,97 @@ export default function NavBar({ setTheme, theme }) {
   };
 
   return (
-    <div className="flex p-6 justify-between shadow-xl items-center">
-      <div className="p-2 bg-warning  text-warning-content rounded-xl font-extrabold text-2xl">
-        Weather
-      </div>
-
-      {menuDropDown ? (
-        <IoMdClose
-          size={30}
-          cursor="pointer"
-          className="lg:hidden"
-          onClick={() => setMenuDropDown(false)}
-        />
-      ) : (
-        <IoMenu
-          size={30}
-          cursor="pointer"
-          className="lg:hidden"
-          onClick={() => setMenuDropDown(true)}
-        />
-      )}
-
-      <div className=" hidden lg:flex">
-        <div>
-          <input
-            placeholder="Search"
-            className="p-2 rounded-xl pr-10 pl-6 lg:w-60"
-            onChange={(e) => setInputValue(e.target.value)} // Only trigger search when input changes
-            value={inputValue} // Control input value
-          />
-          {showDropdown && suggestions.length > 0 && (
-            <ul className="absolute z-[1000] lg:w-60 bg-white border border-gray-300 rounded-md shadow-lg mt-1 max-h-40 overflow-auto">
-              {suggestions.map((item, index) => (
-                <li
-                  key={index}
-                  className="p-2 hover:bg-indigo-100 cursor-pointer"
-                  onClick={() => handleItemClick(item)}
-                >
-                  {item.name}
-                </li>
-              ))}
-            </ul>
-          )}
+    <>
+      <div className="flex p-6 justify-between shadow-xl items-center">
+        <div className="p-2 bg-warning  text-warning-content rounded-xl font-extrabold text-2xl">
+          Weather
         </div>
-        <select
-          value={theme}
-          className="p-2 px-4 lg:w-48 rounded-xl ml-4"
-          onChange={(e) => setTheme(e.target.value)}
-        >
-          {themes.map((theme, i) => (
-            <option key={i}>{theme}</option>
-          ))}
-        </select>
+
+        {menuDropDown ? (
+          <IoMdClose
+            size={30}
+            cursor="pointer"
+            className="lg:hidden"
+            onClick={() => setMenuDropDown(false)}
+          />
+        ) : (
+          <IoMenu
+            size={30}
+            cursor="pointer"
+            className="lg:hidden"
+            onClick={() => setMenuDropDown(true)}
+          />
+        )}
+
+        <div className=" hidden lg:flex">
+          <div>
+            <input
+              placeholder="Search"
+              className="p-2 rounded-xl pr-10 pl-6 lg:w-60"
+              onChange={(e) => setInputValue(e.target.value)} // Only trigger search when input changes
+              value={inputValue} // Control input value
+            />
+            {showDropdown && suggestions.length > 0 && (
+              <ul className="absolute z-[1000] lg:w-60 bg-white border border-gray-300 rounded-md shadow-lg mt-1 max-h-40 overflow-auto">
+                {suggestions.map((item, index) => (
+                  <li
+                    key={index}
+                    className="p-2 hover:bg-indigo-100 cursor-pointer"
+                    onClick={() => handleItemClick(item)}
+                  >
+                    {item.name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <select
+            value={theme}
+            className="p-2 px-4 lg:w-48 rounded-xl ml-4"
+            onChange={(e) => setTheme(e.target.value)}
+          >
+            {themes.map((theme, i) => (
+              <option key={i}>{theme}</option>
+            ))}
+          </select>
+        </div>
       </div>
-    </div>
+      {menuDropDown && (
+        <div className="z-10 absolute bg-base-200 w-full p-8 dropdown">
+          <div>
+            <input
+              placeholder="Search"
+              className="p-2 rounded-xl pr-10 pl-6 w-full lg:w-60 dropdown"
+              onChange={(e) => setInputValue(e.target.value)} // Only trigger search when input changes
+              value={inputValue} // Control input value
+            />
+            {showDropdown && suggestions.length > 0 && (
+              <ul className="absolute dropdown z-[1000] w-80 lg:w-60 bg-white border border-gray-300 rounded-md shadow-lg mt-1 max-h-40 overflow-auto">
+                {suggestions.map((item, index) => (
+                  <li
+                    key={index}
+                    className="p-2 dropdown hover:bg-indigo-100 cursor-pointer"
+                    onClick={() => handleItemClick(item)}
+                  >
+                    {item.name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <select
+            value={theme}
+            className="p-2 dropdown mt-4 px-4 w-full lg:w-48 rounded-xl lg:ml-4"
+            onChange={(e) => setTheme(e.target.value)}
+          >
+            {themes.map((theme, i) => (
+              <option className="dropdown" key={i}>
+                {theme}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+    </>
   );
 }

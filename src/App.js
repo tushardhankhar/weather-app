@@ -41,12 +41,14 @@ function App() {
     if (!isLocationUpdated && location.latitude !== 28.7041 && location.longitude !== 77.1025) {
       setIsLocationUpdated(true);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   useEffect(() => {
     if (isLocationUpdated || !navigator.geolocation) {
       fetchWeatherData();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLocationUpdated, location]);
 
   return (
