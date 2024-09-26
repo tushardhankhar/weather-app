@@ -1,15 +1,16 @@
-import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import { themes } from "../utils/ThemeUtils";
 import axios from "axios";
 import { useLocation } from "../context/location-context";
+import { IoMenu } from "react-icons/io5";
+import { IoMdClose } from "react-icons/io";
 
 export default function NavBar({ setTheme, theme }) {
-  const [inputValue, setInputValue] = useState(""); // To track input changes
-  const [state, setState] = useState(""); // Actual state used for location
+  const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const { setLocation } = useLocation();
   const [showDropdown, setShowDropdown] = useState(false);
+  const [menuDropDown, setMenuDropDown] = useState(false);
 
   async function handleSearch() {
     try {
@@ -32,10 +33,10 @@ export default function NavBar({ setTheme, theme }) {
         clearTimeout(timer);
       };
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputValue]);
 
   const handleItemClick = (item) => {
-    setState(item.name); // Update selected state
     setShowDropdown(false); // Close dropdown
     setLocation({
       latitude: item?.lat,
@@ -44,20 +45,37 @@ export default function NavBar({ setTheme, theme }) {
   };
 
   return (
-    <div className="flex p-6 justify-between shadow-xl">
-      <div className="p-2 bg-warning text-warning-content rounded-xl font-extrabold text-2xl">
+    <div className="flex p-6 justify-between shadow-xl items-center">
+      <div className="p-2 bg-warning  text-warning-content rounded-xl font-extrabold text-2xl">
         Weather
       </div>
-      <div className="flex">
+
+      {menuDropDown ? (
+        <IoMdClose
+          size={30}
+          cursor="pointer"
+          className="lg:hidden"
+          onClick={() => setMenuDropDown(false)}
+        />
+      ) : (
+        <IoMenu
+          size={30}
+          cursor="pointer"
+          className="lg:hidden"
+          onClick={() => setMenuDropDown(true)}
+        />
+      )}
+
+      <div className=" hidden lg:flex">
         <div>
           <input
             placeholder="Search"
-            className="p-2 rounded-xl pr-10 pl-6 w-60"
+            className="p-2 rounded-xl pr-10 pl-6 lg:w-60"
             onChange={(e) => setInputValue(e.target.value)} // Only trigger search when input changes
             value={inputValue} // Control input value
           />
           {showDropdown && suggestions.length > 0 && (
-            <ul className="absolute z-[1000] w-60 bg-white border border-gray-300 rounded-md shadow-lg mt-1 max-h-40 overflow-auto">
+            <ul className="absolute z-[1000] lg:w-60 bg-white border border-gray-300 rounded-md shadow-lg mt-1 max-h-40 overflow-auto">
               {suggestions.map((item, index) => (
                 <li
                   key={index}
@@ -72,7 +90,7 @@ export default function NavBar({ setTheme, theme }) {
         </div>
         <select
           value={theme}
-          className="p-2 px-4 w-48 rounded-xl ml-4"
+          className="p-2 px-4 lg:w-48 rounded-xl ml-4"
           onChange={(e) => setTheme(e.target.value)}
         >
           {themes.map((theme, i) => (

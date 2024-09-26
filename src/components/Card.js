@@ -7,13 +7,13 @@ export default function Card({ data }) {
   return (
     <div className="bg-base-200 w-full rounded-2xl border-base-content border p-8 flex flex-col justify-between ">
       <div>
-        <div className="flex justify-between font-medium text-xl">
+        <div className=" text-center text-base lg:flex justify-between font-medium lg:text-xl">
           <h2>{DAY[date.getDay()]}</h2>
           <CurrentTime />
         </div>
-        <div className="font-medium text-lg mt-2 ">{data?.name}</div>
+        <div className=" text-center font-medium text-lg mt-2 ">{data?.name}</div>
       </div>
-      <div className="font-extrabold text-6xl my-12 text-center">
+      <div className="font-extrabold text-4xl lg:text-6xl my-4 lg:my-12 text-center">
         {(data?.main?.temp - 273.15).toFixed(1)}&deg;c
       </div>
       <div>

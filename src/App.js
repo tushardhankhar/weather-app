@@ -52,12 +52,12 @@ function App() {
   return (
     <div data-theme={theme} className="bg-base-100 min-h-screen ">
       <NavBar setTheme={setTheme} theme={theme} />
-      <main className="flex gap-10 p-20">
+      <main className="lg:flex lg:gap-10 p-10 lg:p-20 flex-col lg:flex-row flex gap-8">
         <div className="w-full flex flex-col gap-8">
           <Card data={data} />
           <Forecast data={data} />
         </div>
-        <div>
+        <div className="w-full flex flex-col gap-8">
           <WeatherMap />
           <AirPollution />
         </div>

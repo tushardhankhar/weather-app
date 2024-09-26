@@ -15,7 +15,7 @@ export default function FeelsLike({ data }) {
       <h2>
         Feels{" "}
         {data?.main?.feels_like - data?.main?.temp > 0 ? "hotter" : "colder"} 
-       &nbsp; than the actual temperature.
+       &nbsp;than the actual temperature.
       </h2>
     </div>
   );

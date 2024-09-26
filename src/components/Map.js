@@ -16,7 +16,7 @@ const WeatherMap = () => {
   const [darkMode, setDarkMode] = useState(false); // Dark mode state
   const [weatherLayer, setWeatherLayer] = useState("temp_new");
   const [coordinates, setCoordinates] = useState([20.5937, 78.9629]);
-  const { location, error } = useLocation();
+  const { location } = useLocation();
 
   const API_KEY = process.env.REACT_APP_WEATHER_KEY; // Replace with your OpenWeatherMap API key
 
@@ -31,11 +31,10 @@ const WeatherMap = () => {
 
   return (
     <div
-      className="rounded-2xl"
+      className="rounded-2xl h-96   lg:w-[50vw] lg:h-[50vh]"
       style={{
         backgroundColor: darkMode ? "#333" : "#fff",
-        width: "50vw",
-        height: "50vh",
+
         borderRadius: "1rem",
       }}
     >
@@ -64,7 +63,7 @@ const WeatherMap = () => {
         />
       </MapContainer>
 
-      <div className="flex gap-4 justify-center mt-4">
+      <div className="hidden lg:flex flex-wrap gap-2 lg:gap-4 justify-center mt-4">
         {/* Layer Switcher */}
         <button
           className="btn btn-primary"
