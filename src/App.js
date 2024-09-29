@@ -14,42 +14,38 @@ import { getWeatherData } from "./services/weatherService";
 
 const notify = (err) => toast.error(err);
 
+// Default coordinates for New Delhi (as a fallback)
+const DEFAULT_COORDS = {
+  latitude: 28.7041, 
+  longitude: 77.1025
+};
+
 function App() {
   const [theme, setTheme] = useState("coffee");
-  const { location, error } = useLocation();
-  const [data, setData] = useState();
-  const [isLocationUpdated, setIsLocationUpdated] = useState(false);
+  const { location, error } = useLocation();  // Get location from context
+  const [data, setData] = useState(null);
 
-  const fetchWeatherData = async () => {
+  const fetchWeatherData = async (lat, lon) => {
     try {
-      const weatherData = await getWeatherData({
-        lat: location.latitude,
-        lon: location.longitude,
-      });
+      const weatherData = await getWeatherData({ lat, lon });
       setData(weatherData);
     } catch (error) {
       notify(error.message);
     }
   };
+
+  // Fetch weather data based on location (user location or default)
   useEffect(() => {
     if (error) {
       notify(error);
     }
-  }, [error]);
 
-  useEffect(() => {
-    if (!isLocationUpdated && location.latitude !== 28.7041 && location.longitude !== 77.1025) {
-      setIsLocationUpdated(true);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
+    // Use default location if location data is not available or geolocation fails
+    const lat = location?.latitude || DEFAULT_COORDS.latitude;
+    const lon = location?.longitude || DEFAULT_COORDS.longitude;
 
-  useEffect(() => {
-    if (isLocationUpdated || !navigator.geolocation) {
-      fetchWeatherData();
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLocationUpdated, location]);
+    fetchWeatherData(lat, lon);
+  }, [location, error]);  // Run the effect when location or error changes
 
   return (
     <div data-theme={theme} className="bg-base-100 min-h-screen ">
@@ -63,7 +59,6 @@ function App() {
           <WeatherMap />
           <AirPollution />
         </div>
-
         <div className="w-full flex flex-col gap-8">
           <Wind data={data} />
           <FeelsLike data={data} />
