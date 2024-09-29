@@ -127,7 +127,7 @@ export default function NavBar({ setTheme, theme }) {
               value={inputValue} // Control input value
             />
             {showDropdown && suggestions.length > 0 && (
-              <ul className="absolute dropdown z-[1000] w-80 lg:w-60 bg-white border border-gray-300 rounded-md shadow-lg mt-1 max-h-40 overflow-auto">
+              <ul className="lg:absolute flex flex-col dropdown z-[1000] w-80 lg:w-60 bg-white border border-gray-300 rounded-md shadow-lg mt-1 max-h-40 overflow-auto">
                 {suggestions.map((item, index) => (
                   <li
                     key={index}
