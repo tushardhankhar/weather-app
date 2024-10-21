@@ -44,7 +44,7 @@ export default function Forecast() {
         const date = new Date(val.dt_txt);
         return (
           <div key={val.dt} className="flex items-center justify-between">
-            <h2 className="text-sm lg:text-base min-w-10">{DAY[date.getDay()].slice(0, 3)}</h2>
+            <h2 className="text-sm lg:text-base min-w-10 lg:min-w-0">{DAY[date.getDay()].slice(0, 3)}</h2>
             <img
               className=" h-8 w-8 lg:h-12 lg:w-12 mt-1"
               src={`https://openweathermap.org/img/wn/${val?.weather[0]?.icon}@2x.png`}

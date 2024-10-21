@@ -39,7 +39,7 @@ export async function getAirPollution({ lat, lon }) {
   try {
     const response = await axios({
       method: "GET",
-      url: "https://api.openweathermap.org/data/2.5/forecast/air_pollution",
+      url: "https://api.openweathermap.org/data/2.5/air_pollution",
       params: {
         lat,
         lon,
