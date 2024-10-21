@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useLocation } from "../context/location-context";
 
-// Component to handle map re-centering
 const ChangeMapCenter = ({ coordinates }) => {
   const map = useMap();
   useEffect(() => {
@@ -13,12 +12,12 @@ const ChangeMapCenter = ({ coordinates }) => {
 };
 
 const WeatherMap = () => {
-  const [darkMode, setDarkMode] = useState(false); // Dark mode state
+  const [darkMode, setDarkMode] = useState(false); 
   const [weatherLayer, setWeatherLayer] = useState("temp_new");
   const [coordinates, setCoordinates] = useState([20.5937, 78.9629]);
   const { location } = useLocation();
 
-  const API_KEY = process.env.REACT_APP_WEATHER_KEY; // Replace with your OpenWeatherMap API key
+  const API_KEY = process.env.REACT_APP_WEATHER_KEY; 
 
   // Toggle dark mode
   const toggleDarkMode = () => setDarkMode(!darkMode);

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoCalendarOutline } from "react-icons/io5";
 import { useLocation } from "../context/location-context";
 import { getWeatherForecast } from "../services/weatherService";
+import { DAY } from "../utils/dateConfig";
 export default function Forecast() {
   const { location } = useLocation();
   const [data, setData] = useState();
@@ -40,9 +41,10 @@ export default function Forecast() {
         <h1>Forecast</h1>
       </div>{" "}
       {data?.map((val) => {
+        const date = new Date(val.dt_txt);
         return (
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm">Today</h2>
+          <div key={val.dt} className="flex items-center justify-between">
+            <h2 className="text-sm lg:text-base min-w-10">{DAY[date.getDay()].slice(0, 3)}</h2>
             <img
               className=" h-8 w-8 lg:h-12 lg:w-12 mt-1"
               src={`https://openweathermap.org/img/wn/${val?.weather[0]?.icon}@2x.png`}

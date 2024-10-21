@@ -33,3 +33,21 @@ export async function getWeatherForecast({ lat, lon }) {
     throw new Error(error.response?.data?.message || error.message);
   }
 }
+
+
+export async function getAirPollution({ lat, lon }) {
+  try {
+    const response = await axios({
+      method: "GET",
+      url: "https://api.openweathermap.org/data/2.5/forecast/air_pollution",
+      params: {
+        lat,
+        lon,
+        appid: process.env.REACT_APP_WEATHER_KEY,
+      },
+    });
+    return response?.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || error.message);
+  }
+}
